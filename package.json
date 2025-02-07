@@ -1,0 +1,39 @@
+{
+  "name": "yt-dlp-api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --watch *.ts --watch *.env --exec \"ts-node -r tsconfig-paths/register\" src/index.ts",
+    "build": "tsc --build",
+    "start": "node -r tsconfig-paths/register build/index.js",
+    "pm2:back": "pm2 start build/index.js --name feature-bot --node-args=\"-r tsconfig-paths/register\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.7.8",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.13.0",
+    "express": "^4.21.1",
+    "express-validator": "^7.2.0",
+    "morgan": "^1.10.0",
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.3",
+    "winston": "^3.15.0",
+    "yt-dlp-wrap": "^2.3.12"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.7.7",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "nodemon": "^3.1.7"
+  }
+}
