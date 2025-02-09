@@ -41,11 +41,11 @@ RUN apk add --no-cache \
     libstdc++ \
     musl
 
-COPY backend/package.json backend/package-lock.json* ./
+COPY package.json package-lock.json* ./
 RUN npm install --production
 
-COPY backend ./
-COPY backend/prisma/schema.prisma ./prisma/
+COPY . ./
+COPY prisma/schema.prisma ./prisma/
 
 RUN npx prisma generate
 RUN npm run build
