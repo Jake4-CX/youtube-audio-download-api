@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: deployments/backend.dockerfile
+          file: deployments/.dockerfile
           push: true
           build-args: |
             REST_PORT=${{ env.REST_PORT }}
