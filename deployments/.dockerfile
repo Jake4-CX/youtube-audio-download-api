@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM node:18-alpine
 
-# Set environment variables and create .env file
+# Set environment variables
 ARG REST_PORT
 ENV REST_PORT=$REST_PORT
 
@@ -34,23 +34,29 @@ RUN echo "REST_PORT=$REST_PORT" >> .env && \
 
 WORKDIR /app
 
+# Install necessary packages, including Python and ffmpeg
 RUN apk add --no-cache \
     openssl \
     zlib \
     libgcc \
     libstdc++ \
-    musl
+    musl \
+    python3 \
+    py3-pip \
+    ffmpeg
 
+# Copy and install dependencies
 COPY package.json package-lock.json* ./
 RUN npm install --production
 
+# Copy application code
 COPY . ./
 COPY prisma/schema.prisma ./prisma/
 
 # Ensure database is set up correctly
 RUN npx prisma db push
-
 RUN npx prisma generate
 RUN npm run build
 
+# Start application
 CMD ["node", "-r", "tsconfig-paths/register", "build/index.js"]
