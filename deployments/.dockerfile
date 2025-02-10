@@ -47,6 +47,9 @@ RUN npm install --production
 COPY . ./
 COPY prisma/schema.prisma ./prisma/
 
+# Ensure database is set up correctly
+RUN npx prisma db push
+
 RUN npx prisma generate
 RUN npm run build
 
