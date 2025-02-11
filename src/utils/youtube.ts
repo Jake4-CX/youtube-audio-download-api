@@ -81,10 +81,11 @@ export function getVideoIdFromURL(url: string) {
   }
 
   if (url.includes('youtu.be')) {
-    return url.split('/').pop();
+    const [videoId] = url.split('/').pop()?.split('?') ?? [];
+    return videoId;
   }
 
-  const videoId = url.split('v=')[1];
+  const [videoId] = url.split('v=')[1]?.split('&') ?? [];
   return videoId;
 }
 
