@@ -33,6 +33,9 @@ export async function getVideoInfo(videoId: string) {
           licensedContent: boolean,
           regionRestriction: {
             blocked: string[]
+          },
+          contentRating: {
+            ytRating?: string
           }
         },
         snippet: {

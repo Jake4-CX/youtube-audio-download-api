@@ -61,13 +61,20 @@ export class DownloadController {
     }
 
     if (videoData.statistics.viewCount < 5000) {
-      response.status(400).json({ status: "below_minimum_view_count", message: "Video has less than 5000 views" });
+      response.status(400).json({ status: "below_minimum_view_count", message: "This video has less than 5000 views" });
       return false;
+    }
+
+    const contentRating = videoData.contentDetails.contentRating;
+    if (contentRating && contentRating.ytRating === "ytAgeRestricted") {
+      response.status(400).json({ status: "age_restricted", message: "This video is age restricted and cannot be downloaded." });
+      return false;
+
     }
 
     const videoDuration = videoData.contentDetails.duration; // ISO 8601 string
     if ((parseISO8601Duration(videoDuration) / 60) >= 31) {
-      response.status(400).json({ status: "duration_exceeded", message: "Video duration exceeds 30 minutes" });
+      response.status(400).json({ status: "duration_exceeded", message: "This video duration exceeds 30 minutes" });
       return false;
     }
     return true;
